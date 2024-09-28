@@ -84,7 +84,7 @@ class Student {
 
     addStudyGroup(Group){
         if (Group instanceof StudyGroup){
-            if (!this.groupExists(Group)){
+            if (!this.groupExists(Group.getGroupName)){
                 this.#studyGroups.push(Group);
             }else{
 
