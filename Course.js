@@ -25,12 +25,13 @@ class Course {
     }
 
     // addStudyGroup
-    addStudyGroup(Group){
-        if (Group instanceof StudyGroup){
-            if(!this.groupExists(Group.getGroupName())){
-                this.#studyGroups.push(Group);
-                console.log(`${Group.getGroupName()}, has been added to ${this.#courseName}.`);
-            }
+    addStudyGroup(groupName){
+        //let groupName = prompt("Enter Group Name: ");
+        if(!this.groupExists(groupName)){
+            let Group = new StudyGroup(groupName, this.#courseName);
+            this.#studyGroups.push(Group);
+            this.#studyGroupSize += 1;
+            console.log(`${groupName}, has been added to ${this.#courseName}.`);
         }else{
             console.log(`Study group cannot be added`);
         }
@@ -40,4 +41,17 @@ class Course {
     groupExists(groupName){
         return this.#studyGroups.some(group => group.getGroupName() === groupName);
     }
+
+    // removeGroup
+    removeGroup(groupName){
+        const index = this.#studyGroups.findIndex(group => group.getName() === groupName);
+        if (index !== -1) {
+            console.log(`${this.#studyGroups[index].getName()} has been removed from the Course "${this.#courseName}".`);
+            this.#studyGroups.splice(index, 1);
+        } else {
+            console.log(`Group "${groupName}" not found in the group.`);
+        }
+    }
 }
+
+export default Course;
