@@ -83,10 +83,12 @@ class Student {
     // addStudyGroup
 
     addStudyGroup(Group){
-        if (!this.groupExists(Group)){
-            this.#studyGroups.push(Group);
-        }else{
-            
+        if (Group instanceof StudyGroup){
+            if (!this.groupExists(Group)){
+                this.#studyGroups.push(Group);
+            }else{
+
+            }
         }
     }
 
@@ -97,10 +99,8 @@ class Student {
     // Print Deatils
     printDetails() { 
         console.log(`Name: ${this.#name}, Year: ${this.#year}, Major: ${this.#major}, ID: ${this.#id}, `);
+        console.log()
     }
-
-    
-
 }   
 
 export default Student;
