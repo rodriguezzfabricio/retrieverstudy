@@ -1,22 +1,21 @@
 import Student from './Student.js'; 
 
 //StudyGroup Class
-
-maxSize = 8;
-
 class StudyGroup {
+    static maxSize = 8;
     #groupName;
-    #Course;
+    #courseName;
     #groupSize;
     #students;
-    #meetTime;
+    #meetTimes;
     #locations;
 
     // Constructor
-    constructor(groupName, Course){
+    constructor(groupName, courseName){
         this.#groupName = groupName;
-        this.#Course = Course;
+        this.#courseName = courseName;
         this.#students = [];
+        this.#groupSize = 0;
     }
 
     // Setters
@@ -25,7 +24,7 @@ class StudyGroup {
     }
 
     setClass(newCourse){
-        this.#Course = newCourse;
+        this.#courseName = newCourse;
     }
 
     // Getters
@@ -34,15 +33,21 @@ class StudyGroup {
     }
 
     getClass(){
-        return this.#Course;
+        return this.#courseName;
     }
 
     // AddStudent
     addStudent(student){
         if (student instanceof Student){
-            this.#students.push(student)
-            console.log(`${student.getName()} has been added to the group "${this.#groupName}".`);
-        }else{
+            if (this.#groupSize < StudyGroup.maxSize) {  // Ensure group size does not exceed maxSize
+                this.#students.push(student);
+                this.#groupSize += 1;
+                student.addStudyGroup(this);
+                console.log(`${student.getName()} has been added to the group "${this.#groupName}".`);
+            } else {
+                console.log(`Cannot add ${student.getName()}. Group "${this.#groupName}" is full.`);
+            }
+        } else {
             console.log("Invalid student. Please provide a valid Student object.");
         }
     }
@@ -60,9 +65,11 @@ class StudyGroup {
 
     // Method to print all students in the group
     printGroupDetails() {
-        console.log(`Course: ${this.#Course}`);
+        console.log(`Course: ${this.#courseName}`);
         console.log(`Study Group: ${this.#groupName}`);
         console.log("Members:");
         this.#students.forEach(student => student.printDetails());
     }
 }
+
+export default StudyGroup
