@@ -3,7 +3,6 @@ body {
     margin: 0;
     padding: 0;
 }
-
 header {
     background-color: #333;
     color: white;
@@ -12,54 +11,44 @@ header {
     justify-content: space-between;
     align-items: center;
 }
-
 header .logo {
     display: flex;
     align-items: center;
 }
-
 header .logo img {
     height: 40px;
     margin-right: 10px;
 }
-
 header .header-links a {
     color: white;
     text-decoration: none;
     margin-left: 20px;
 }
-
 header .header-links a:hover {
     text-decoration: underline;
 }
-
 .how-it-works {
     text-align: center;
     padding: 40px 20px;
 }
-
 .how-it-works h1 {
     margin-top: 10px;
     font-size: 32px;
 }
-
 .how-it-works .steps {
     display: flex;
     justify-content: space-around;
     margin-top: 40px;
 }
-
 .step {
     max-width: 300px;
     text-align: center;
 }
-
 .step img {
     width: 100%;
     height: auto;
     border-radius: 50%;
 }
-
 .step p {
     margin-top: 10px;
     font-size: 16px;
