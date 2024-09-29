@@ -22,3 +22,8 @@ def find_study_group(group_name):
         return study_groups[index]
     else:
         print(f"{group_name} does not exist.")
+        return -1
+
+def create_studyGroup(group_name, course_name):
+    study_group = StudyGroup(group_name, course_name)
+    add_study_groups(study_group)
