@@ -1,4 +1,4 @@
-from study_group import StudyGroup
+from studyGroup import StudyGroup
 
 study_groups = []
 study_group_amount = 0
