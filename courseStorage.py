@@ -22,3 +22,10 @@ def find_course(course_name):
         return courses[index]
     else:
         print(f"{course_name} does not exist.")
+        return -1
+
+def create_course(course_name, student_count, subject):
+    new_course = Course(course_name, student_count, subject)
+    add_course(new_course)
+
+    
