@@ -1,5 +1,5 @@
 from student import Student
-import studyGroupStorage
+#import studyGroupStorage
 
 class StudyGroup:
     max_size = 8
@@ -9,7 +9,7 @@ class StudyGroup:
         self.__course_name = course_name
         self.__students = []
         self.__group_size = 0
-        studyGroupStorage.add_study_group(self)
+        #studyGroupStorage.add_study_group(self)
 
     # Setters
     def set_group_name(self, new_name):
