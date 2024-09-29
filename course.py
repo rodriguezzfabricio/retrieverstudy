@@ -1,13 +1,14 @@
 from studyGroup import StudyGroup
-import courseStorage
+#import courseStorage
 
 class Course:
-    def __init__(self, course_name, student_count):
+    def __init__(self, course_name, student_count, subject):
         self.__course_name = course_name
         self.__study_groups = []
         self.__study_group_size = 0
         self.__students = student_count
-        courseStorage.add_course(self)
+        self.__subject = subject
+        #courseStorage.add_course(self)
 
     # Setters
     def set_course_name(self, new_course_name):
