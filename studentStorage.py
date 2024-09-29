@@ -22,3 +22,21 @@ def find_student(student_name):
         return students[index]
     else:
         print(f"{student_name} does not exist.")
+
+def login(email, password):
+    student = None
+    index = next((i for i, student in enumerate(students) if student.get_email() == email), -1)
+    if index != -1:
+        student = students[index]
+    else:
+        print(f"{student_name} does not exist.")
+        return
+    student_password = student.get_password()
+    if password == student_password:
+        return student
+    else:
+        print("Wrong Password")
+        return
+
+def sign_up(email, password, name, major, id, year):
+    Student(name, year, major, id, password, email)
