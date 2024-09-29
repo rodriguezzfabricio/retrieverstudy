@@ -1,4 +1,5 @@
-from study_group import StudyGroup
+from studyGroup import StudyGroup
+import studentStorage
 
 class Student:
     def __init__(self, name, year, major, student_id, password, email, username):
@@ -11,6 +12,7 @@ class Student:
         self.__email = email
         self.__study_groups = []
         self.__password = password
+        studentStorage.add_student(self)
 
     # Setters
     def set_name(self, name):
