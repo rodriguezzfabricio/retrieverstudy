@@ -1,40 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retriever Study</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .header {
+            background-color: #333; /* Dark background to match your color scheme */
+            color: #fff;
+            padding: 20px;
+        }
+
+        .header-links a {
+            color: #fff;
+            margin-left: 20px;
+            text-decoration: none;
+        }
+
+        .header-links a:hover {
+            text-decoration: underline;
+        }
+
+        .how-it-works {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .steps .step {
+            margin-top: 20px;
+        }
+
+        .step img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .step p {
+            margin-top: 15px;
+        }
+
+        .how-it-works h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .how-it-works h1 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 24px;
+        }
+    </style>
 </head>
+
 <body>
-    <header>
-        <div class="logo">
-            <img src="retriever-logo.png" alt="Retriever Logo">
+
+    <!-- Header -->
+    <header class="header d-flex justify-content-between align-items-center">
+        <div class="logo d-flex align-items-center">
+            <img src="{{ url_for('static', filename='retriever-logo.png') }}" alt="Retriever Logo">
             <h1>RETRIEVER STUDY</h1>
         </div>
         <div class="header-links">
-            <a href="home.html">Home</a>
-            <a href="login.html">Login</a>
+            <a href="{{ url_for('views.home') }}">Home</a>
+            <a href="{{ url_for('auth.login') }}">Login</a>
         </div>
     </header>
 
+    <!-- How It Works Section -->
     <section class="how-it-works">
         <h2>Find your study groups here!</h2>
         <h1>How it works:</h1>
-        <div class="steps">
-            <div class="step">
-                <img src="person1.jpg" alt="Person 1">
-                <p>Choose your class! This is sorted by subject, so select your subject from the drop-down and select a class within.</p>
-            </div>
-            <div class="step">
-                <img src="person2.jpg" alt="Person 2">
-                <p>Press "Join Study Team" and join the queue!</p>
-            </div>
-            <div class="step">
-                <img src="person3.jpg" alt="Person 3">
-                <p>When you get into a group, you'll get an email to meet up with the date, time and location!</p>
+        <div class="container">
+            <div class="row steps">
+                <div class="col-md-4 step">
+                    <img src="{{ url_for('static', filename='person1.jpg') }}" alt="Person 1">
+                    <p>Choose your class! This is sorted by subject, so select your subject from the drop-down and select a class within.</p>
+                </div>
+                <div class="col-md-4 step">
+                    <img src="{{ url_for('static', filename='person2.jpg') }}" alt="Person 2">
+                    <p>Press "Join Study Team" and join the queue!</p>
+                </div>
+                <div class="col-md-4 step">
+                    <img src="{{ url_for('static', filename='person3.jpg') }}" alt="Person 3">
+                    <p>When you get into a group, you'll get an email to meet up with the date, time, and location!</p>
+                </div>
             </div>
         </div>
     </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
