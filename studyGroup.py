@@ -1,5 +1,4 @@
-from student import Student
-#import studyGroupStorage
+import studentStorage
 
 class StudyGroup:
     max_size = 8
@@ -9,7 +8,7 @@ class StudyGroup:
         self.__course_name = course_name
         self.__students = []
         self.__group_size = 0
-        #studyGroupStorage.add_study_group(self)
+        studentStorage.studyGroupStorage.add_study_group(self)
 
     # Setters
     def set_group_name(self, new_name):
@@ -27,7 +26,7 @@ class StudyGroup:
 
     # Add student
     def add_student(self, student):
-        if isinstance(student, Student):
+        if isinstance(student, studentStorage.Student):
             if self.__group_size < StudyGroup.max_size:  # Ensure group size does not exceed max_size
                 self.__students.append(student)
                 self.__group_size += 1
