@@ -22,7 +22,6 @@ def find_student(student_name):
         return students[index]
     else:
         print(f"{student_name} does not exist.")
-        return -1
 
 def login(email, password):
     student = None
@@ -30,7 +29,7 @@ def login(email, password):
     if index != -1:
         student = students[index]
     else:
-        print(f"{student_name} does not exist.")
+        print(f"{email} does not exist.")
         return
     student_password = student.get_password()
     if password == student_password:
@@ -40,5 +39,4 @@ def login(email, password):
         return
 
 def sign_up(email, password, name, major, id, year):
-    student = Student(name, year, major, id, password, email)
-    add_student(student)
+    Student(name, year, major, id, password, email)
