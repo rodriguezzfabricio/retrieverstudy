@@ -4,41 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retriever Study - Find a Study Group</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+
 <body>
     <header>
         <div class="logo">
-            <img src="retriever-logo.png" alt="Retriever Logo">
+            <img src="{{ url_for('static', filename='retriever-logo.png') }}" alt="Retriever Logo">
             <h1>RETRIEVER STUDY</h1>
         </div>
         <div class="header-links">
-            <a href="home.html">Home</a>
-			<a href="profile.html">Profile</a>
+            <a href="{{ url_for('views.home') }}">Home</a>
+            <a href="{{ url_for('views.profile') }}">Profile</a>
         </div>
     </header>
 
-	<section class="study-section">
+    <section class="study-section">
         <div class="study-container">
             <h2>Find Your Study Group</h2>
-            <form id="study-form" action="#" method="post">
+            <!-- Initial form for selecting subject and course -->
+            <form id="find-study-group-form" action="{{ url_for('views.check_study_groups') }}" method="post">
                 <label for="subject">Select Subject:</label>
                 <select id="subject" name="subject" required>
                     <option value="">--Select a Subject--</option>
+                    {% for subject in subjects %}
+                    <option value="{{ subject.subject }}">{{ subject.subject }}</option>
+                    {% endfor %}
                 </select>
-                
+
                 <label for="course">Select Course:</label>
-                <select id="course" name="course" required>
+                <select id="course" name="course" required disabled>
                     <option value="">--Select a Course--</option>
+                    {% for course in courses %}
+                    <option value="{{ course.id }}" data-subject="{{ course.subject }}">{{ course.course_name }}</option>
+                    {% endfor %}
                 </select>
-                
-				<a href="confirm.html">
-                <button type="submit" id="queue-up-btn" disabled>Queue up!</button>
-				</a>
+
+                <button type="submit" id="find-study-group-btn">Find Study Group</button>
             </form>
+
+            <!-- Section to show if study groups exist for the course -->
+            {% if course_selected %}
+            <h3>Study Groups for {{ selected_course.course_name }}</h3>
+            {% if study_groups %}
+            <ul>
+                {% for group in study_groups %}
+                <li>
+                    {{ group.group_name }} - {{ group.location }} on {{ group.date }} at {{ group.time }} 
+                    (Max: {{ group.max_size }} members) - Current Members: {{ group.students|length }}
+                    {% if current_user in group.students %}
+                        You are a member
+                    {% elif current_user.id == group.creator_id %}
+                        You are the creator
+                    {% else %}
+                        <form action="{{ url_for('views.join_study_group', group_id=group.id) }}" method="post" style="display:inline;">
+                            <button type="submit">Join Group</button>
+                        </form>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <!-- Professional message to encourage creating another group -->
+            <div class="info-box">
+                <p>Want to create your own group? You can create a new study group for {{ selected_course.course_name }} even if others exist.</p>
+            </div>
+
+            <!-- Option to create a new group even if one already exists -->
+            <form id="create-study-group-form" action="{{ url_for('views.create_study_group') }}" method="post">
+                <input type="hidden" name="course" value="{{ selected_course.id }}">
+
+                <label for="group_size">Group Size (max 8):</label>
+                <input type="number" id="group_size" name="group_size" min="1" max="8" required>
+
+                <label for="location">Pick Location:</label>
+                <select id="location" name="location" required>
+                    <option value="Library">Library</option>
+                    <option value="Science Building">Science Building</option>
+                    <option value="Student Union">Student Union</option>
+                </select>
+
+                <label for="date">Pick Date:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="time">Pick Time:</label>
+                <input type="time" id="time" name="time" required>
+
+                <button type="submit" id="create-study-group-btn">Create Your Own Group</button>
+            </form>
+            {% endif %}
         </div>
     </section>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const subjectSelect = document.getElementById('subject');
+            const courseSelect = document.getElementById('course');
+
+            const allCourseOptions = Array.from(document.querySelectorAll('#course option[data-subject]'));
+
+            subjectSelect.addEventListener('change', function () {
+                const selectedSubject = subjectSelect.value;
+                courseSelect.innerHTML = '<option value="">--Select a Course--</option>';
+                courseSelect.disabled = true;
+
+                if (selectedSubject) {
+                    allCourseOptions.forEach(option => {
+                        if (option.getAttribute('data-subject') === selectedSubject) {
+                            courseSelect.appendChild(option.cloneNode(true));
+                        }
+                    });
+                    courseSelect.disabled = false;
+                }
+            });
+        });
+    </script>
 </body>
 </html>
