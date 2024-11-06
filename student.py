@@ -1,9 +1,8 @@
-from studyGroup import StudyGroup
-#import studentStorage
+import studentStorage
 
 class Student:
-    def __init__(self, name, year, major, student_id, password, email):
-        #self.__username = username
+    def __init__(self, name, year, major, student_id, password, email, username):
+        self.__username = username
         self.__name = name
         self.__year = year
         self.__major = major
@@ -12,6 +11,7 @@ class Student:
         self.__email = email
         self.__study_groups = []
         self.__password = password
+        studentStorage.add_student(self)
 
     # Setters
     def set_name(self, name):
@@ -65,7 +65,7 @@ class Student:
 
     # Add Study Group
     def add_study_group(self, group):
-        if isinstance(group, StudyGroup):
+        if isinstance(group, studyGroupStorage.StudyGroup):
             if not self.group_exists(group.get_group_name()):
                 self.__study_groups.append(group)
             else:
